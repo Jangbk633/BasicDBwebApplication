@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>티켓팅 웹사이트</title>
+    <link rel="stylesheet" href="mainpage.css">
+</head>
+<body>
+    <!-- 상단 헤더 -->
+    <header>
+        <div class="logo">🎟 티켓팅</div>
+    </header>
+
+    <!-- 메인 레이아웃 -->
+    <div class="container">
+        <!-- 왼쪽 섹션: 로그인창 + 필터 -->
+        <aside class="left-section">
+            <div class="login">
+                <h2>로그인</h2>
+                <form>
+                    <input type="text" placeholder="아이디">
+                    <input type="password" placeholder="비밀번호">
+                    <button type="submit">로그인</button>
+                </form>
+                <a href="#">회원가입</a>
+            </div>
+
+            <div class="filter">
+                <h2>필터</h2>
+                <label>
+                    가격:
+                    <input type="number" placeholder="최소 가격"> ~ <input type="number" placeholder="최대 가격">
+                </label>
+                <label>
+                    일자:
+                    <input type="date">
+                </label>
+                <label>
+                    종류:
+                    <select>
+                        <option>전체</option>
+                        <option>콘서트</option>
+                        <option>스포츠</option>
+                        <option>뮤지컬</option>
+                    </select>
+                </label>
+            </div>
+        </aside>
+
+        <!-- 가운데 섹션: 검색창 + 티켓 매물 -->
+        <main>
+            <div class="search">
+                <input type="text" placeholder="이름, 가격 등으로 검색">
+                <button>검색</button>
+            </div>
+
+            <h2>티켓 매물</h2>
+            <div class="ticket-list">
+                <!-- 티켓 아이템 예시 -->
+                <div class="ticket-item">
+                    <h3>콘서트 티켓</h3>
+                    <p>가격: 50,000원</p>
+                    <p>날짜: 2024-07-01</p>
+                    <button>자세히 보기</button>
+                </div>
+                <div class="ticket-item">
+                    <h3>뮤지컬 티켓</h3>
+                    <p>가격: 80,000원</p>
+                    <p>날짜: 2024-08-15</p>
+                    <button>자세히 보기</button>
+                </div>
+            </div>
+
+            <!-- 페이지 넘기기 -->
+            <div class="pagination">
+                <button>이전</button>
+                <span>1 / 5</span>
+                <button>다음</button>
+            </div>
+        </main>
+
+        <!-- 오른쪽 섹션: 티켓 매물 올리기 -->
+        <aside class="right-section">
+            <div class="upload">
+                <h2>티켓 매물 올리기</h2>
+                <form>
+                    <input type="text" placeholder="제목">
+                    <input type="number" placeholder="가격">
+                    <input type="date" placeholder="일자">
+                    <button type="submit">등록하기</button>
+                </form>
+            </div>
+        </aside>
+    </div>
+
+    <!-- 하단 푸터 -->
+    <footer>
+        <p>기초데이터베이스 4분반 C111154 장범규</p>
+    </footer>
+</body>
+</html>
