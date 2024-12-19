@@ -33,24 +33,29 @@
 
             <div class="filter">
                 <h2>필터</h2>
-                <label>
-                    가격:
-                    <input type="number" placeholder="최소 가격"> ~ <input type="number" placeholder="최대 가격">
-                </label>
-                <label>
-                    일자:
-                    <input type="date">
-                </label>
-                <label>
-                    종류:
-                    <select>
-                        <option>전체</option>
-                        <option>콘서트</option>
-                        <option>스포츠</option>
-                        <option>뮤지컬</option>
-                    </select>
-                </label>
-            </div>
+                <form method="GET" action="/">
+                    <label>
+                        가격:
+                        <input type="number" name="min_price" placeholder="최소 가격">
+                        ~
+                        <input type="number" name="max_price" placeholder="최대 가격">
+                    </label>
+                    <label>
+                        일자:
+                        <input type="date" name="date">
+                    </label>
+                    <label>
+                        종류:
+                        <select name="category">
+                            <option value="전체">전체</option>
+                            <option value="콘서트">콘서트</option>
+                            <option value="스포츠">스포츠</option>
+                            <option value="뮤지컬">뮤지컬</option>
+                        </select>
+                    </label>
+                    <button type="submit">필터 적용</button>
+                </form>
+            </div>            
         </aside>
 
         <!-- 가운데 섹션: 검색창 + 티켓 매물 -->
@@ -83,9 +88,15 @@
                 <input type="text" name="title" placeholder="제목" required>
                 <input type="number" name="price" placeholder="가격" required min="0">
                 <input type="date" name="date" required>
+                <select name="category" required>
+                    <option value="콘서트">콘서트</option>
+                    <option value="스포츠">스포츠</option>
+                    <option value="뮤지컬">뮤지컬</option>
+                    <option value="기타">기타</option>
+                </select>
                 <textarea name="description" placeholder="설명 (선택)" rows="3"></textarea>
                 <button type="submit">등록하기</button>
-            </form>
+            </form>            
         </aside>
     </div>
 
