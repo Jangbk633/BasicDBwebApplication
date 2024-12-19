@@ -1,13 +1,11 @@
 FROM python:3.12
 
-WORKDIR /code
+WORKDIR /app
 
-COPY ./requirments.txt /code/requirments.txt
+COPY ./app /app
+COPY requirments.txt /app/requirments.txt
+COPY wait-for-it.sh /app/wait-for-it.sh
 
-RUN pip install --no-cache-dir -r /code/requirments.txt
+RUN pip install --no-cache-dir -r /app/requirments.txt
 
-COPY ./app /code/app
-
-EXPOSE 8000
-
-CMD ["uvicorn", "app.server:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "server.py"]

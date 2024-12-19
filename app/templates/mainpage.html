@@ -85,7 +85,7 @@
         <aside class="right-section">
             <h2>티켓 등록</h2>
             <form id="ticket-form" method="POST">
-                <input type="text" name="title" placeholder="제목" required>
+                <input type="text" name="title" placeholder="제목(한글은 인코딩문제로 인해 깨집니다)" required>
                 <input type="number" name="price" placeholder="가격" required min="0">
                 <input type="date" name="date" required>
                 <select name="category" required>
