@@ -7,11 +7,11 @@
 3. clone한 디렉토리에서 다음의 코드를 실행한다 (docker가 깔려있어야 한다)
 <pre>
 <code>
-       docker-compose build
-       docker-compose up
+docker-compose build
+docker-compose up
 </code>
 </pre>
-5. http://127.0.0.1:5000 로 접속한다
+4. http://127.0.0.1:5000 로 접속한다
 
 wait-for-it.sh 출처:
 https://github.com/vishnubob/wait-for-it/blob/master/wait-for-it.sh
