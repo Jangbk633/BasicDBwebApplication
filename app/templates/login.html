@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <!-- 메인페이지로 돌아가기 버튼 -->
+    <a href="/" class="back-to-main">← 메인페이지로</a>
+
+    <div class="login-container">
+        <h1>로그인</h1>
+        <form method="POST">
+            <input type="text" name="username" placeholder="아이디" required>
+            <input type="password" name="password" placeholder="비밀번호" required>
+            <button type="submit">로그인</button>
+        </form>
+        <a href="/register">회원가입</a>
+    </div>
+</body>
+
+</html>

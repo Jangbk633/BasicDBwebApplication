@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기디비 개인프로젝트 과제</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mainpage.css') }}">
+</head>
+<body>
+    <!-- 상단 헤더 -->
+    <header>
+        <div class="logo">개인프로젝트 티켓팅 웹서버 서비스</div>
+    </header>
+
+    <!-- 메인 레이아웃 -->
+    <div class="container">
+        <!-- 왼쪽 섹션: 로그인창 + 필터 -->
+        <aside class="left-section">
+            <div class="login">
+                {% if 'user_id' in session %}
+                    <h2>안녕하세요, {{ session['username'] }}님</h2>
+                    <a href="{{ url_for('logout') }}" class="logout-button">로그아웃</a>
+                {% else %}
+                    <h2>로그인</h2>
+                    <form method="POST" action="{{ url_for('login') }}">
+                        <input type="text" name="username" placeholder="아이디" required>
+                        <input type="password" name="password" placeholder="비밀번호" required>
+                        <button type="submit">로그인</button>
+                    </form>
+                    <a href="{{ url_for('register') }}">회원가입</a>
+                {% endif %}
+            </div>                       
+
+            <div class="filter">
+                <h2>필터</h2>
+                <label>
+                    가격:
+                    <input type="number" placeholder="최소 가격"> ~ <input type="number" placeholder="최대 가격">
+                </label>
+                <label>
+                    일자:
+                    <input type="date">
+                </label>
+                <label>
+                    종류:
+                    <select>
+                        <option>전체</option>
+                        <option>콘서트</option>
+                        <option>스포츠</option>
+                        <option>뮤지컬</option>
+                    </select>
+                </label>
+            </div>
+        </aside>
+
+        <!-- 가운데 섹션: 검색창 + 티켓 매물 -->
+        <main>
+            <div class="search">
+                <form method="GET" action="/">
+                    <input type="text" name="search" placeholder="이름으로 검색" value="{{ request.args.get('search', '') }}">
+                    <button type="submit">검색</button>
+                </form>
+            </div>
+
+            <h2>티켓 매물</h2>
+            <div class="ticket-list">
+                {% for ticket in tickets %}
+                <div class="ticket-item">
+                    <h3>{{ ticket.title }}</h3>
+                    <p>가격: {{ ticket.price }}원</p>
+                    <p>날짜: {{ ticket.date }}</p>
+                    <p>{{ ticket.description or "설명 없음" }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+        </main>
+
+        <!-- 오른쪽 섹션: 티켓 매물 올리기 -->
+        <aside class="right-section">
+            <h2>티켓 등록</h2>
+            <form id="ticket-form" method="POST">
+                <input type="text" name="title" placeholder="제목" required>
+                <input type="number" name="price" placeholder="가격" required min="0">
+                <input type="date" name="date" required>
+                <textarea name="description" placeholder="설명 (선택)" rows="3"></textarea>
+                <button type="submit">등록하기</button>
+            </form>
+        </aside>
+    </div>
+
+    <!-- 하단 푸터 -->
+    <footer>
+        <p>기초데이터베이스 4분반 C111154 장범규</p>
+    </footer>
+</body>
+</html>

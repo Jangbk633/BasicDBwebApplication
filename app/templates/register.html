@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+</head>
+<body>
+    <!-- 메인페이지로 돌아가기 버튼 -->
+    <a href="/" class="back-to-main">← 메인페이지로</a>
+
+    <div class="register-container">
+        <h1>회원가입</h1>
+        <form method="POST">
+            <input type="text" name="username" placeholder="아이디" required>
+            <input type="password" name="password" placeholder="비밀번호" required>
+            <input type="password" name="confirm_password" placeholder="비밀번호 확인" required>
+            <button type="submit">회원가입</button>
+        </form>
+        <a href="/login">로그인</a>
+    </div>
+</body>
+
+</html>
