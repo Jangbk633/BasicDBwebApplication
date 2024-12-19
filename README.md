@@ -1,2 +1,2 @@
-# BasicDBwebApplication
+# 기초데이터베이스 개인프로젝트 과제
  
