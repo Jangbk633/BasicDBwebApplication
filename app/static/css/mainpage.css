@@ -14,7 +14,7 @@ body {
 
 /* 헤더 */
 header {
-    background: #6a11cb;
+    background: #1833DB;
     color: white;
     padding: 1rem;
     text-align: center;
@@ -51,7 +51,7 @@ header {
 .filter button {
     margin-top: 1rem;
     padding: 0.5rem;
-    background: #6a11cb;
+    background: #1833DB;
     color: white;
     border: none;
     cursor: pointer;
@@ -78,7 +78,7 @@ header {
 .login button {
     width: 100%;
     padding: 0.5rem;
-    background: #6a11cb;
+    background: #1833DB;
     color: white;
     border: none;
     cursor: pointer;
@@ -88,7 +88,7 @@ header {
     display: block;
     text-align: center;
     margin-top: 0.5rem;
-    color: #6a11cb;
+    color: #1833DB;
     text-decoration: none;
 }
 .login a:hover {
@@ -118,7 +118,7 @@ header {
 
 .search button {
     padding: 0.5rem 1rem;
-    background: #2575fc;
+    background: #0381FE;
     color: white;
     border: none;
     cursor: pointer;
@@ -150,7 +150,7 @@ main {
     text-align: center;
 }
 .ticket-item button {
-    background: #2575fc;
+    background: #69EBFF;
     color: white;
     border: none;
     padding: 0.5rem;
@@ -166,7 +166,7 @@ main {
 }
 .pagination button {
     padding: 0.5rem 1rem;
-    background: #6a11cb;
+    background: #1833DB;
     color: white;
     border: none;
     cursor: pointer;
@@ -186,14 +186,14 @@ main {
 .right-section form button {
     width: 100%;
     padding: 0.5rem;
-    background: #6a11cb;
+    background: #1833DB;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 .right-section form button:hover {
-    background: #4b0082;
+    background: #1833DB;
 }
 .upload {
     background: #fff;
@@ -216,7 +216,7 @@ main {
 .upload form button {
     padding: 0.5rem;
     width: 100%;
-    background: #6a11cb;
+    background: #1833DB;
     color: white;
     border: none;
     cursor: pointer;
@@ -244,25 +244,38 @@ li.danger {
     color: red;
     font-weight: bold;
 }
-.flash-message {
-    margin: 1rem auto;
-    padding: 1rem;
-    border-radius: 8px;
+.flash-messages {
+    position: fixed;
+    top: 20px;  /* 화면 맨 위에 여백 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    max-width: 600px;  /* 메시지 최대 너비 */
+    z-index: 1050;
     text-align: center;
-    width: 90%;
-    max-width: 400px;
+    padding: 0.5rem;
 }
-.flash-message.success {
+
+/* 각 카테고리별 스타일 (Bootstrap 기반) */
+.alert-success {
     background-color: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
 }
-.flash-message.danger {
+
+.alert-danger {
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
-.flash-message.info {
+
+.alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.alert-info {
     background-color: #d1ecf1;
     color: #0c5460;
     border: 1px solid #bee5eb;

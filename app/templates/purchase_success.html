@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ticket_detail.css') }}">
+    <title>Purchase Successful</title>
+</head>
+<body>
+    <header>
+        <a href="/" class="back-btn">메인 페이지로 돌아가기</a>
+    </header>
+    <main>
+        <div class="ticket-container">
+            <h1>구매 완료!</h1>
+            <p>{{ ticket.title }} 티켓을 성공적으로 구매하셨습니다.</p>
+            <a href="/" class="back-btn">메인 페이지로 돌아가기</a>
+        </div>
+    </main>
+</body>
+</html>

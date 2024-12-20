@@ -1,3 +1,4 @@
+import secrets
 from flask import Flask, request, redirect, url_for, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -5,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 # Flask 앱 생성
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # 세션 암호화 키
+app.secret_key = secrets.token_hex(16)  # 세션 암호화 키
 
 # 데이터베이스 설정
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@db:3306/ticket_db?charset=utf8mb4'
@@ -21,8 +22,7 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
 
 # 티켓 모델 정의
-# 티켓 모델 정의
-class ticket(db.Model):  # 클래스 이름 대문자 변경
+class Ticket(db.Model):  # 클래스 이름 대문자 변경
     __tablename__ = 'ticket'  # 테이블 이름 지정
 
     id = db.Column(db.Integer, primary_key=True)
@@ -93,7 +93,7 @@ def index():
         # 티켓 등록
         try:
             data = request.form
-            new_ticket = ticket(
+            new_ticket = Ticket(
                 title=data['title'],
                 price=float(data['price']),
                 date=datetime.strptime(data['date'], '%Y-%m-%d'),
@@ -109,35 +109,54 @@ def index():
 
     # GET 요청 시 필터 및 검색 적용
     filters = request.args
-    query = ticket.query
+    query = Ticket.query
 
     # 검색: 제목
     search_keyword = filters.get('search', '').strip()
     if search_keyword:
-        query = query.filter(ticket.title.ilike(f"%{search_keyword}%"))  # 대소문자 구분 없이 검색
+        query = query.filter(Ticket.title.ilike(f"%{search_keyword}%"))  # 대소문자 구분 없이 검색
 
     # 필터: 가격
     min_price = filters.get('min_price', type=float)
     max_price = filters.get('max_price', type=float)
     if min_price is not None:
-        query = query.filter(ticket.price >= min_price)
+        query = query.filter(Ticket.price >= min_price)
     if max_price is not None:
-        query = query.filter(ticket.price <= max_price)
+        query = query.filter(Ticket.price <= max_price)
 
     # 필터: 날짜
     date = filters.get('date')
     if date:
-        query = query.filter(ticket.date == datetime.strptime(date, '%Y-%m-%d').date())
+        query = query.filter(Ticket.date == datetime.strptime(date, '%Y-%m-%d').date())
 
     # 필터: 종류
     category = filters.get('category')
-    if category and category != '전체':
-        query = query.filter(ticket.category == category)
+    if category and category != 'all':
+        query = query.filter(Ticket.category == category)
 
     # 정렬
-    tickets = query.order_by(ticket.date).all()
+    tickets = query.order_by(Ticket.date).all()
 
     return render_template('mainpage.html', tickets=tickets)
+
+# 티켓 구매 페이지
+@app.route('/ticket/<int:ticket_id>', methods=['GET', 'POST'])
+def ticket_detail(ticket_id):
+    if 'user_id' not in session:
+        flash('티켓 구매는 로그인 후 이용 가능합니다.', 'danger')
+        return redirect(url_for('login'))
+
+    ticket = Ticket.query.get(ticket_id)
+    if not ticket:
+        flash('존재하지 않는 티켓입니다.', 'danger')
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        # 구매 로직 추가 (예: 데이터베이스에 구매 정보 기록)
+        flash('티켓 구매가 완료되었습니다!', 'success')
+        return redirect(url_for('index'))
+
+    return render_template('ticket_detail.html', ticket=ticket)
 
 # 앱 실행
 if __name__ == '__main__':

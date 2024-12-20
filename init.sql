@@ -13,6 +13,15 @@ CREATE TABLE IF NOT EXISTS ticket (
     category VARCHAR(100) NOT NULL DEFAULT 'etc'
 )CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
+CREATE TABLE purchases (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_id INT NOT NULL,
+    user_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (ticket_id) REFERENCES ticket (id) ON DELETE CASCADE
+);
+
 INSERT INTO ticket (title, price, date, description, category)
 VALUES 
     ('Concert 1', 50000, '2024-12-25', 'Concert Discription 1', "concert"),
