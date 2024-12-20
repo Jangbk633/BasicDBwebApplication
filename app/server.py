@@ -22,8 +22,8 @@ class User(db.Model):
     password = db.Column(db.String(255), nullable=False)
 
 # 티켓 모델 정의
-class Ticket(db.Model):  # 클래스 이름 대문자 변경
-    __tablename__ = 'ticket'  # 테이블 이름 지정
+class Ticket(db.Model): 
+    __tablename__ = 'ticket'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
@@ -31,6 +31,7 @@ class Ticket(db.Model):  # 클래스 이름 대문자 변경
     date = db.Column(db.Date, nullable=False)
     description = db.Column(db.Text, nullable=True)
     category = db.Column(db.String(100), nullable=False)
+    stock = db.Column(db.Integer, nullable=False, default=0) 
 
 # 데이터베이스 테이블 생성
 with app.app_context():
@@ -91,21 +92,24 @@ def index():
             flash('티켓 등록은 로그인 후 이용 가능합니다.', 'danger')
             return redirect(url_for('login'))
         # 티켓 등록
-        try:
-            data = request.form
-            new_ticket = Ticket(
-                title=data['title'],
-                price=float(data['price']),
-                date=datetime.strptime(data['date'], '%Y-%m-%d'),
-                description=data.get('description', ''),
-                category=data.get('category', '기타')  # 카테고리 필드
-            )
-            db.session.add(new_ticket)
-            db.session.commit()
-            print(f"[INFO] 티켓 등록 성공: {new_ticket.title}")
-            return redirect(url_for('index'))  # 현재 페이지로 리다이렉트
-        except Exception as e:
-            print(f"[ERROR] 등록 오류: {str(e)}")
+        if request.method == 'POST':
+            try:
+                data = request.form
+                new_ticket = Ticket(
+                    title=data['title'],
+                    price=float(data['price']),
+                    stock=int(data['stock']),  # 재고 추가
+                    date=datetime.strptime(data['date'], '%Y-%m-%d'),
+                    description=data.get('description', ''),
+                    category=data.get('category', '기타')
+                )
+                db.session.add(new_ticket)
+                db.session.commit()
+                flash('티켓 등록 성공!', 'success')
+            except Exception as e:
+                flash(f'등록 오류: {str(e)}', 'danger')
+            return redirect(url_for('index'))
+
 
     # GET 요청 시 필터 및 검색 적용
     filters = request.args
@@ -145,17 +149,22 @@ def ticket_detail(ticket_id):
     if 'user_id' not in session:
         flash('티켓 구매는 로그인 후 이용 가능합니다.', 'danger')
         return redirect(url_for('login'))
-
+    
     ticket = Ticket.query.get(ticket_id)
     if not ticket:
         flash('존재하지 않는 티켓입니다.', 'danger')
         return redirect(url_for('index'))
 
     if request.method == 'POST':
-        # 구매 로직 추가 (예: 데이터베이스에 구매 정보 기록)
-        flash('티켓 구매가 완료되었습니다!', 'success')
-        return redirect(url_for('index'))
+        if ticket.stock > 0:
+            ticket.stock -= 1
+            db.session.commit()
+            flash('티켓 구매가 완료되었습니다!', 'success')
+        else:
+            flash('티켓 재고가 부족합니다.', 'danger')
 
+        return redirect(url_for('index'))
+    
     return render_template('ticket_detail.html', ticket=ticket)
 
 # 앱 실행
