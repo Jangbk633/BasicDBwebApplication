@@ -47,10 +47,11 @@
                     <label>
                         종류:
                         <select name="category">
-                            <option value="전체">전체</option>
-                            <option value="콘서트">콘서트</option>
-                            <option value="스포츠">스포츠</option>
-                            <option value="뮤지컬">뮤지컬</option>
+                            <option value="all">전체</option>
+                            <option value="concert">콘서트</option>
+                            <option value="sports">스포츠</option>
+                            <option value="musical">뮤지컬</option>
+                            <option value="etc">기타</option>
                         </select>
                     </label>
                     <button type="submit">필터 적용</button>
@@ -89,10 +90,10 @@
                 <input type="number" name="price" placeholder="가격" required min="0">
                 <input type="date" name="date" required>
                 <select name="category" required>
-                    <option value="콘서트">콘서트</option>
-                    <option value="스포츠">스포츠</option>
-                    <option value="뮤지컬">뮤지컬</option>
-                    <option value="기타">기타</option>
+                    <option value="concert">콘서트</option>
+                    <option value="sports">스포츠</option>
+                    <option value="musical">뮤지컬</option>
+                    <option value="etc">기타</option>
                 </select>
                 <textarea name="description" placeholder="설명 (선택)" rows="3"></textarea>
                 <button type="submit">등록하기</button>
